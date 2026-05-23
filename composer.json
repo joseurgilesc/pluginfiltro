@@ -1,0 +1,21 @@
+{
+    "name": "zira/filtro-color",
+    "description": "Agrega un filtro por colores en la tienda WooCommerce usando el atributo pa_color.",
+    "type": "wordpress-plugin",
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0",
+        "wp-phpunit/wp-phpunit": "^6.0",
+        "yoast/wp-test-utils": "^1.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Zira\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}

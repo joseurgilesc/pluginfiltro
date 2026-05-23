@@ -1,0 +1,55 @@
+/**
+ * Zira Color Filter — Frontend Styles
+ *
+ * @package Zira_Filtro_Color
+ */
+
+.zira-color-filter {
+    margin: 0 0 24px;
+    padding: 16px;
+    background: #f7f7f7;
+    border-radius: 14px;
+}
+
+.zira-color-filter strong {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.zira-color-filter__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.zira-color-filter__item {
+    display: inline-block;
+    padding: 7px 13px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    color: #333;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 1;
+    transition: all 0.2s ease;
+}
+
+.zira-color-filter__item:hover,
+.zira-color-filter__item.active {
+    background: #222;
+    color: #fff;
+    border-color: #222;
+}
+
+.zira-color-filter__swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}

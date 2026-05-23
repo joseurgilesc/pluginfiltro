@@ -1,0 +1,36 @@
+schema: spec-driven
+
+context: |
+  Tech stack: PHP 7.4+, WordPress 6.x, WooCommerce 7.x+
+  Architecture: Single-file procedural plugin with action hooks
+  Testing: None — no test infrastructure (WordPress plugin without test framework)
+  Style: WordPress coding standards, procedural functions, inline CSS via wp_add_inline_style
+  i18n: No textdomain, Spanish strings hardcoded
+
+rules:
+  proposal:
+    - Include rollback plan for risky changes
+    - Must reference all 7 improvement requirements
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+  design:
+    - Follow WordPress OOP conventions (singleton or static init)
+    - Use WordPress Settings API for admin configuration
+    - Document architecture decisions with rationale
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+    - Work unit commit strategy: one commit per logical change
+  apply:
+    - Follow WordPress Coding Standards
+    - All user-facing strings must be wrapped in __() or _e()
+    - Prefix functions, class names, and hooks with 'zira_'
+    tdd: false
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: ""
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas

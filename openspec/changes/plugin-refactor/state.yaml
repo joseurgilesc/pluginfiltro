@@ -1,0 +1,11 @@
+change: plugin-refactor
+status: explore-complete
+phases:
+  explore: complete
+  propose: pending
+  spec: complete
+  design: complete
+  tasks: pending
+  apply: pending
+  verify: pending
+  archive: pending
