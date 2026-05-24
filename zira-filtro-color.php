@@ -228,6 +228,7 @@ class Zira_Color_Filter
         }
 
         $current_color = $this->get_current_color();
+        $excluded      = $this->get_excluded_terms();
         $base_url      = remove_query_arg('filter_color');
 
         echo '<div class="zira-color-filter">';
@@ -241,6 +242,10 @@ class Zira_Color_Filter
             . __('Todos', 'zira-filtro-color') . '</a>';
 
         foreach ($terms as $term) {
+            if (in_array($term->slug, $excluded, true)) {
+                continue;
+            }
+
             $color_meta   = $this->get_color_meta($term->term_id);
             $url          = add_query_arg('filter_color', $term->slug, $base_url);
             $active_class = $current_color === $term->slug ? 'active' : '';
@@ -315,6 +320,17 @@ class Zira_Color_Filter
     public function get_taxonomy(): string
     {
         return get_option('zira_color_filter_taxonomy', 'pa_color');
+    }
+
+    /**
+     * Get the list of term slugs excluded from the frontend filter.
+     *
+     * @return array
+     */
+    public function get_excluded_terms(): array
+    {
+        $excluded = get_option('zira_color_filter_excluded_terms', []);
+        return is_array($excluded) ? $excluded : [];
     }
 }
 
@@ -400,6 +416,37 @@ class Zira_Color_Filter_Settings extends \WC_Settings_Page
                 'type'    => 'select',
                 'options' => $options,
             ];
+
+            // Excluded terms — multiselect populated from the saved taxonomy.
+            $saved_taxonomy = get_option('zira_color_filter_taxonomy', 'pa_color');
+            $term_options   = [];
+            if (taxonomy_exists($saved_taxonomy)) {
+                $all_terms = get_terms([
+                    'taxonomy'   => $saved_taxonomy,
+                    'hide_empty' => false,
+                    'orderby'    => 'name',
+                    'order'      => 'ASC',
+                ]);
+                if (! empty($all_terms) && ! is_wp_error($all_terms)) {
+                    foreach ($all_terms as $t) {
+                        $term_options[$t->slug] = $t->name;
+                    }
+                }
+            }
+
+            if (! empty($term_options)) {
+                $settings[] = [
+                    'title'   => __('Excluded Terms', 'zira-filtro-color'),
+                    'desc'    => __(
+                        'Select terms to hide from the frontend color filter.',
+                        'zira-filtro-color'
+                    ),
+                    'id'      => 'zira_color_filter_excluded_terms',
+                    'default' => [],
+                    'type'    => 'multiselect',
+                    'options' => $term_options,
+                ];
+            }
         }
 
         $settings[] = [
